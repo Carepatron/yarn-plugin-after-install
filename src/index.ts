@@ -4,12 +4,16 @@ import { configuration } from './config'
 import { AfterInstallCommand } from './commands/afterInstall'
 import { executeAfterInstallHook } from './utils'
 
+const isCI = process.env.CI === 'true'
+
 const plugin: Plugin = {
   configuration,
   commands: [AfterInstallCommand],
   hooks: {
     afterAllInstalled: async (project: Project, options?: InstallOptions): Promise<void> => {
-      if (options?.mode === InstallMode.UpdateLockfile) {
+      // Skip the hook if we're in CI or the mode is `update-lockfile`
+      if (options?.mode === InstallMode.UpdateLockfile || isCI) {
+        console.log('Skipping `afterInstall` hook because we are in CI or the mode is `update-lockfile`')
         return
       }
 
