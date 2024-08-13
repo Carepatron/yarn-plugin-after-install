@@ -40,7 +40,8 @@
     "@yarnpkg/builder": "^4.0.0",
     "@yarnpkg/core": "^4.0.0",
     "@yarnpkg/shell": "^4.0.0",
-    "clipanion": "^4.0.0-rc.2"
+    "clipanion": "^4.0.0-rc.2",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",

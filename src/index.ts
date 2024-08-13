@@ -3,6 +3,7 @@ import type { InstallOptions } from '@yarnpkg/core/lib/Project'
 import { configuration } from './config'
 import { AfterInstallCommand } from './commands/afterInstall'
 import { executeAfterInstallHook } from './utils'
+import 'dotenv/config'
 
 const isCI = process.env.CI === 'true'
 
