@@ -5,8 +5,6 @@ import { AfterInstallCommand } from './commands/afterInstall'
 import { executeAfterInstallHook } from './utils'
 import { config } from 'dotenv'
 
-const isCI = process.env.CI === 'true'
-
 const plugin: Plugin = {
   configuration,
   commands: [AfterInstallCommand],
@@ -14,6 +12,8 @@ const plugin: Plugin = {
     afterAllInstalled: async (project: Project, options?: InstallOptions): Promise<void> => {
       // load .env file
       config()
+
+      const isCI = process.env.CI === 'true'
 
       // Skip the hook if we're in CI or the mode is `update-lockfile`
       if (options?.mode === InstallMode.UpdateLockfile || isCI) {
