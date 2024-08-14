@@ -3,7 +3,7 @@ import type { InstallOptions } from '@yarnpkg/core/lib/Project'
 import { configuration } from './config'
 import { AfterInstallCommand } from './commands/afterInstall'
 import { executeAfterInstallHook } from './utils'
-import 'dotenv/config'
+import { config } from 'dotenv'
 
 const isCI = process.env.CI === 'true'
 
@@ -12,6 +12,9 @@ const plugin: Plugin = {
   commands: [AfterInstallCommand],
   hooks: {
     afterAllInstalled: async (project: Project, options?: InstallOptions): Promise<void> => {
+      // load .env file
+      config()
+
       // Skip the hook if we're in CI or the mode is `update-lockfile`
       if (options?.mode === InstallMode.UpdateLockfile || isCI) {
         console.log('Skipping `afterInstall` hook because we are in CI or the mode is `update-lockfile`')
